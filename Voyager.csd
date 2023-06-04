@@ -46,7 +46,7 @@ instr 1 ; instrumento director
 
 ;;PRIMERA PARTE
 ;reverb
-event_i	"i", 991, 0, 139
+event_i	"i", 99, 0, 139, .8, .5
 
 ; Pulsos que saltan de frecuencia rodeando la cabeza
 event_i "i", 9, 0, 130, 1000, 900, .1, 70
@@ -78,8 +78,8 @@ event_i "i", 2, 130, .7, .4 , 90, 100
 ;;SEGUNDA PARTE
 
 ;reverb
-event_i	"i", 996, 130, 145 
-;event_i	"i", 998, 130, 120
+event_i "i", 99, 130, 145, .99, 1
+
 ;Hilo de ruido filtrado volante
 event_i	"i", 6, 130, 70, 300, 400, .2
 event_i	"i", 6, 130, 70, 300, 1000, .3
@@ -495,30 +495,12 @@ endin
 /**************************************************************************************** */
 /**************************************************************************************** */
 /**************************************************************************************** */
+instr 99 ;reverberación
 
-
-instr 996 ;reverberación
-
-/*asig1	reverb gasig1, 4
-asig2	reverb gasig2, 4
-		outs	asig1*.15, asig2*.15*/
-asig1, asig2	freeverb gasig1, gasig2, .99, 1
-		outs	asig1*.3, asig2*.3
-gasig1 = 0
-gasig2 = 0
-
-endin
-
-
-/**************************************************************************************** */
-/**************************************************************************************** */
-/**************************************************************************************** */
-
-instr 991 ;reverberación llamada desde la Parte 1 (Instr 1) Esta reverb se aplica a los "sinusoides volantes"
-
-asig1, asig2	freeverb gasig1, gasig2, .8, .5
+irm_size = p4
+idamp = p5
+asig1, asig2	freeverb gasig1, gasig2, irm_size, idamp ;.8, .5
 				outs asig1, asig2
-
 gasig1 = 0
 gasig2 = 0
 
