@@ -38,8 +38,8 @@ gicuadr	ftgen	4, 0, 4, 2, 0,0,1,1
 /* Varialbes globales para reverbs */
 gasig1 init 0
 gasig2 init 0
-gasig5 init 0
-gasig6 init 0
+gasig3 init 0
+gasig4 init 0
 
 instr 1 ; instrumento director
 ;loop de notas de instrumento 2
@@ -422,26 +422,11 @@ afiltered	 	balance	afiltered, asound
 afiltered		= 		afiltered*iamp
 kenv			transeg	0, .01, -2, 1, p3-.01-.5, -4, 0, .5, 0, 0
 aleft, aright 	hrtfmove2 afiltered*kenv, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
-gasig5	= gasig5 + afiltered
-gasig6	= gasig6 + afiltered
+gasig3	= gasig3 + afiltered
+gasig4	= gasig4 + afiltered
 
 
 outs aleft, aright
-endin
-
-/**************************************************************************************** */
-/**************************************************************************************** */
-/**************************************************************************************** */
-
-instr 995 ;reverberación
-
-asig5	reverb gasig5, 4
-asig6	reverb gasig6, 4
-;asig5, asig6	freeverb gasig5, gasig6, .9, 1
-		outs	asig5, asig6
-gasig5 = 0
-gasig6 = 0
-
 endin
 
 /**************************************************************************************** */
@@ -548,6 +533,7 @@ endin
 /**************************************************************************************** */
 /**************************************************************************************** */
 /**************************************************************************************** */
+
 instr 99 ;reverberación
 
 irm_size = p4
@@ -563,9 +549,8 @@ endin
 </CsInstruments>
 <CsScore>
 
-;;Instrumento 1 : dispara la partitura principal
+;;Dispara la partitura principal, que es un conjunto de eventos en Instr 1
 i1	0 200
-
 e 
 </CsScore>
 </CsoundSynthesizer>
