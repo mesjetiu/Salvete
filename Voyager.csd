@@ -28,12 +28,14 @@ En esta composición la aleatoriedad juega un papel muy importante.
 Probar a modificar este entero para obtener diferentes versiones */
 seed	876 
 
+/* Conjunto de tablas utilizadas por diferentes opcodes. Nótese que son llamadas
+por los opcodes por su número (1, 2, 3 y 4) y no por su nombre ("gisine", etc.) */
 gisine	ftgen	1, 0, 2^10, 10, 1
 girich	ftgen	2, 0, 2^16, 10, 1,1/2,1/3,1/4,1/5,1/6,1/7,1/8
 gipunto ftgen	3, 0, 5, 2, 0,0,1,1
 gicuadr	ftgen	4, 0, 4, 2, 0,0,1,1
 
-
+/* Varialbes globales */
 gasig1 init 0
 gasig2 init 0
 gasig3 init 0
@@ -175,9 +177,9 @@ event_i "i", 8, 195, 10, -45, 0, 12, 2, 1;Hebreo 12
 iloop2_i	= 1
 idur		= 80
 imin		= 162
-idenom	=	30 ;determina la densidad inicial de disparo de samples saludos
-ialargada=	idenom
-ipitch	=	1
+idenom		= 30 ;determina la densidad inicial de disparo de samples saludos
+ialargada	= idenom
+ipitch		= 1
 loop2:
     istart	=	imin + idur - (idur/idenom) * ialargada
     idenom	=	idenom+1
@@ -185,7 +187,7 @@ loop2:
     iAz		random	0, 180
     iElev	random	0, 360
     ifile	random	1, 52
-    iamp		random	.6, .8
+    iamp	random	.6, .8
     ipitch	=	ipitch*1.012
     iIter	=	200  ; número de samples que se disparan
     event_i	"i", 8, istart, iduracion, iAz, iElev, ifile, iamp, ipitch
@@ -206,7 +208,7 @@ loop3:
 	iAz		random	0, 360
 	iElev	random	90, -90
 	ifactor	= (idurtotal-istart)/(iinitotal+idurtotal)
-	iamp		random	iampMin*ifactor, iampMax*ifactor
+	iamp	random	iampMin*ifactor, iampMax*ifactor
 	event_i "i", 5, istart, idur, ifreq, iAz, iElev, iamp
 loop_le iloop3_i, 1, iIter, loop3
 
