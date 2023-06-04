@@ -306,9 +306,13 @@ ah6		oscil 1/6, kfreq6+kenval6*iindexenv*kenv_al, 1
 ah7		oscil 1/7, kfreq7+kenval7*iindexenv*kenv_al, 1
 ah8		oscil 1/8, kfreq8+kenval8*iindexenv*kenv_al, 1
 
-; Sumamos todo para enviarlo al archivo de audio
-kvolumen invalue "slider1"
+/* Esta línea se procede acomentarla porque parece venir de un "slider" externo, y se inicializa kvolumen a 0.7,
+ya que sin el slider su valor es siempre 0, e instr 2 no tendría ningún efecto */
+;kvolumen invalue "slider1"
+kvolumen = 0.7
 
+
+; Sumamos todo para enviarlo al archivo de audio
 asig1 = (ah1*ipan1+ah2*ipan2+ah3*ipan3+ah4*ipan4+ah5*ipan5+ah6*ipan5+ah7*ipan7+ah8*ipan8)*igain*kvolumen*0.1
 
 asig2 = (ah1*(1-ipan1)+ah2*(1-ipan2)+ah3*(1-ipan3)+ah4*(1-ipan4)+ah5*(1-ipan5)+ah6*(1-ipan6)+ah7*(1-ipan7)+ah8*(1-ipan8))*igain*kvolumen*0.1
