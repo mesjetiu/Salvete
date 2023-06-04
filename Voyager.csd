@@ -8,7 +8,7 @@
 ;La obra no está pensada para ser ejecutada en vivo, ni en 2012 cuando se creó, ni hoy,
 ;en 2023, que se revisa y refactoriza. Existen parte en las que la demanda de velocidad es 
 ;demasiado grande y se producen 'Buffer underrun in real-time audio output'.
-;Aún así, puede ser útil la ejecución en vivo para debugear el programa. */
+;Aún así, puede ser útil la ejecución en vivo para debugear el programa.
 ;Elegir aquí si se quiere obtener un archivo de audio o una ejecución en vivo:
 
 ;-o salvete.wav -W ; Crea un archivo WAV
@@ -154,7 +154,7 @@ event_i "i", 2, 130, .7, .4 , 90, 100
 ;;SEGUNDA PARTE
 
 ;reverb
-event_i "i", 99, 130, 145, .7, 0.5
+event_i "i", 99, 130, 145, .8, 1
 
 ;Hilo de ruido filtrado volante
 event_i	"i", 6, 130, 70, 300, 400, .2
@@ -191,15 +191,7 @@ loop2:
     event_i	"i", 8, istart, iduracion, iAz, iElev, ifile, iamp, ipitch
 loop_le	iloop2_i, 1, iIter, loop2
 
-/*;ruidos de campana:
-event_i "i", 5, 135, 8, 400, 20, 40
-event_i "i", 5, 154, 8, 786, -20, 40
-event_i "i", 5, 187, 8, 531, 0, 90
-event_i "i", 5, 200, 8, 2120, -90, 0
-*/
-;reverb
-;event_i "i", 995, 115, 130
-
+;ruidos de campana
 iloop3_i	= 1
 idurtotal 	= 127
 iIter		= 20
@@ -207,7 +199,7 @@ iinitotal	= 154
 iini		= iinitotal
 iampMax		= .8	
 iampMin		= .4
-loop3: ;ruidos de campana
+loop3: 
 	istart	random	iini, iini+idurtotal
 	idur	random	4, 20
 	ifreq	random	160, 3000
@@ -219,8 +211,7 @@ loop3: ;ruidos de campana
 loop_le iloop3_i, 1, iIter, loop3
 
 
-;reverb
-;event_i	"i", 995, 241, 122
+;ruidos de campana (2)
 iloop4_i	= 1
 idurtotal 	= 30
 iIter		= 25
@@ -228,10 +219,7 @@ iinitotal	= 242
 iini		= iinitotal
 iampMax		= .4	
 iampMin		= .2
-loop4: ;ruidos de campana
-
-;	istart	random	iini, idurtotal + iinitotal
-;	iini		= iini + 1
+loop4: 
 	istart	random	iini, iini+idurtotal
 	idur	random	8, 30
 	ifreq	random	160, 3000
@@ -239,11 +227,10 @@ loop4: ;ruidos de campana
 	iElev	random	90, -90
 	ifactor	= (idurtotal-istart)/(iinitotal+idurtotal)
 	iamp	random	iampMin*ifactor, iampMax*ifactor
-
-
 	event_i "i", 5, istart, idur, ifreq, iAz, iElev, iamp
 loop_le iloop4_i, 1, iIter, loop4
 
+;ruidos de campana (3)
 iloop5_i	= 1
 idurtotal 	= 60
 iIter		= 12
@@ -251,19 +238,15 @@ iinitotal	= 272
 iini		= iinitotal
 iampMax		= .2	
 iampMin		= .08
-loop5: ;ruidos de campana
-;	istart	random	iini, idurtotal + iinitotal
-;	iini		= iini + 1
+loop5: 
 	istart	random	iini, iini+idurtotal
 	idur		random	15, 30
 	ifreq	random	80, 3000
 	iAz		random	0, 360
 	iElev	random	45, -45
-	;ifactor	= (idurtotal-istart)/(iinitotal+idurtotal)
 	iamp		random	iampMin, iampMax
 	event_i "i", 5, istart, idur, ifreq, iAz, iElev, iamp
 loop_le iloop5_i, 1, iIter, loop5
-;Pulsos de contact (¿?)
 endin
 
 /**************************************************************************************** */
