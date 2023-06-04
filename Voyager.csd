@@ -635,39 +635,3 @@ e
 
 
 
-<bsbPanel>
- <label>Widgets</label>
- <objectName/>
- <x>0</x>
- <y>0</y>
- <width>196</width>
- <height>317</height>
- <visible>true</visible>
- <uuid/>
- <bgcolor mode="nobackground">
-  <r>231</r>
-  <g>46</g>
-  <b>255</b>
- </bgcolor>
- <bsbObject type="BSBVSlider" version="2">
-  <objectName>slider1</objectName>
-  <x>5</x>
-  <y>5</y>
-  <width>20</width>
-  <height>100</height>
-  <uuid>{48b9cedd-b8c0-4554-b7ff-d7ce085f6d0b}</uuid>
-  <visible>true</visible>
-  <midichan>0</midichan>
-  <midicc>0</midicc>
-  <description/>
-  <minimum>0.00000000</minimum>
-  <maximum>1.00000000</maximum>
-  <value>1.00000000</value>
-  <mode>lin</mode>
-  <mouseControl act="jump">continuous</mouseControl>
-  <resolution>-1.00000000</resolution>
-  <randomizable group="0">false</randomizable>
- </bsbObject>
-</bsbPanel>
-<bsbPresets>
-</bsbPresets>
