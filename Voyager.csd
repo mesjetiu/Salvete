@@ -93,18 +93,18 @@ event_i	"i", 6, 130, 200, 75, 200, .18
 event_i	"i", 7, 151.85, .15, 90, 0
 ;Algunos saludos:
 event_i	"i", 8, 152, 10, 90, 0, 53, 2, 1 ;Inglés 53
-event_i 	"i", 8, 168, 10, -90, 0, 13, 2, 1;Español 13
-event_i 	"i", 8, 187, 10, 0, 90, 10, 2, 1;Francés 10
-event_i 	"i", 8, 178, 10, 0, 0, 50, 2.6, 1;Checo 50
-event_i 	"i", 8, 200, 20, 0, 45, 18, 2.4, 1;Latín 18
-event_i 	"i", 8, 195, 10, -45, 0, 12, 2, 1;Hebreo 12
+event_i "i", 8, 168, 10, -90, 0, 13, 2, 1;Español 13
+event_i "i", 8, 187, 10, 0, 90, 10, 2, 1;Francés 10
+event_i "i", 8, 178, 10, 0, 0, 50, 2.6, 1;Checo 50
+event_i "i", 8, 200, 20, 0, 45, 18, 2.4, 1;Latín 18
+event_i "i", 8, 195, 10, -45, 0, 12, 2, 1;Hebreo 12
 
 
 ;loop de saludos. Iran aumentando su densidad y después su velocidad. Total 40s
 
 iloop2_i	= 1
-idur		=	80
-imin		= 	162
+idur		= 80
+imin		= 162
 idenom	=	30 ;determina la densidad inicial de disparo de samples saludos
 ialargada=	idenom
 ipitch	=	1
@@ -131,25 +131,20 @@ event_i "i", 5, 200, 8, 2120, -90, 0
 ;event_i "i", 995, 115, 130
 
 iloop3_i	= 1
-idurtotal =	127
-iIter	= 20
-iinitotal	=	154
-iini			= iinitotal
-iampMax		=	.8	
-iampMin		=	.4
+idurtotal 	= 127
+iIter		= 20
+iinitotal	= 154
+iini		= iinitotal
+iampMax		= .8	
+iampMin		= .4
 loop3: ;ruidos de campana
-
-;	istart	random	iini, idurtotal + iinitotal
-;	iini		= iini + 1
 	istart	random	iini, iini+idurtotal
-	idur		random	4, 20
+	idur	random	4, 20
 	ifreq	random	160, 3000
 	iAz		random	0, 360
 	iElev	random	90, -90
 	ifactor	= (idurtotal-istart)/(iinitotal+idurtotal)
 	iamp		random	iampMin*ifactor, iampMax*ifactor
-
-
 	event_i "i", 5, istart, idur, ifreq, iAz, iElev, iamp
 loop_le iloop3_i, 1, iIter, loop3
 
@@ -157,39 +152,36 @@ loop_le iloop3_i, 1, iIter, loop3
 ;reverb
 ;event_i	"i", 995, 241, 122
 iloop4_i	= 1
-idurtotal =	30
-iIter	= 25
-iinitotal	=	242
-iini			= iinitotal
-iampMax		=	.4	
-iampMin		=	.2
+idurtotal 	= 30
+iIter		= 25
+iinitotal	= 242
+iini		= iinitotal
+iampMax		= .4	
+iampMin		= .2
 loop4: ;ruidos de campana
 
 ;	istart	random	iini, idurtotal + iinitotal
 ;	iini		= iini + 1
 	istart	random	iini, iini+idurtotal
-	idur		random	8, 30
+	idur	random	8, 30
 	ifreq	random	160, 3000
 	iAz		random	0, 360
 	iElev	random	90, -90
 	ifactor	= (idurtotal-istart)/(iinitotal+idurtotal)
-	iamp		random	iampMin*ifactor, iampMax*ifactor
+	iamp	random	iampMin*ifactor, iampMax*ifactor
 
 
 	event_i "i", 5, istart, idur, ifreq, iAz, iElev, iamp
 loop_le iloop4_i, 1, iIter, loop4
 
-
-
 iloop5_i	= 1
-idurtotal =	60
-iIter	= 12
-iinitotal	=	272
-iini			= iinitotal
-iampMax		=	.2	
-iampMin		=	.08
+idurtotal 	= 60
+iIter		= 12
+iinitotal	= 272
+iini		= iinitotal
+iampMax		= .2	
+iampMin		= .08
 loop5: ;ruidos de campana
-
 ;	istart	random	iini, idurtotal + iinitotal
 ;	iini		= iini + 1
 	istart	random	iini, iini+idurtotal
@@ -199,12 +191,9 @@ loop5: ;ruidos de campana
 	iElev	random	45, -45
 	;ifactor	= (idurtotal-istart)/(iinitotal+idurtotal)
 	iamp		random	iampMin, iampMax
-
-
 	event_i "i", 5, istart, idur, ifreq, iAz, iElev, iamp
 loop_le iloop5_i, 1, iIter, loop5
 ;Pulsos de contact (¿?)
-
 endin
 
 /**************************************************************************************** */
@@ -299,14 +288,14 @@ kenv_al	expseg	.001, itih*1/2, .3, itih*1/2*1/3, 0.1, itih*1/2*2/3 - .5, .5, .5,
 ;kenv_al = .05
 ;producimos los armonicos sinusoides
 iindexenv = 15000 ; el índice de grado de vaiven de los armónicos
-ah1		oscil 1, kfreq1+kenval1*iindexenv*kenv_al, 1
-ah2		oscil 1/2, kfreq2+kenval2*iindexenv*kenv_al, 1
-ah3		oscil 1/3, kfreq3+kenval3*iindexenv*kenv_al, 1
-ah4		oscil 1/4, kfreq4+kenval4*iindexenv*kenv_al, 1
-ah5		oscil 1/5, kfreq5+kenval5*iindexenv*kenv_al, 1
-ah6		oscil 1/6, kfreq6+kenval6*iindexenv*kenv_al, 1
-ah7		oscil 1/7, kfreq7+kenval7*iindexenv*kenv_al, 1
-ah8		oscil 1/8, kfreq8+kenval8*iindexenv*kenv_al, 1
+ah1	oscil 1, kfreq1+kenval1*iindexenv*kenv_al, 1
+ah2	oscil 1/2, kfreq2+kenval2*iindexenv*kenv_al, 1
+ah3	oscil 1/3, kfreq3+kenval3*iindexenv*kenv_al, 1
+ah4	oscil 1/4, kfreq4+kenval4*iindexenv*kenv_al, 1
+ah5	oscil 1/5, kfreq5+kenval5*iindexenv*kenv_al, 1
+ah6	oscil 1/6, kfreq6+kenval6*iindexenv*kenv_al, 1
+ah7	oscil 1/7, kfreq7+kenval7*iindexenv*kenv_al, 1
+ah8	oscil 1/8, kfreq8+kenval8*iindexenv*kenv_al, 1
 
 /* Esta línea se procede acomentarla porque parece venir de un "slider" externo, y se inicializa kvolumen a 0.7,
 ya que sin el slider su valor es siempre 0, e instr 2 no tendría ningún efecto */
@@ -355,10 +344,10 @@ gasig1 = gasig1 + aCar*.55
 gasig2 = gasig2 + aCar*.55
 
 ;Sonido binaural
-kAz = p6
-kElev = p7
+kAz 	= p6
+kElev 	= p7
 aleft, aright 	hrtfmove aCar, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
-				outs aleft*.5, aright*.5
+		outs aleft*.5, aright*.5
 endin
 
 /**************************************************************************************** */
@@ -366,12 +355,12 @@ endin
 /**************************************************************************************** */
 
 
-instr 4
+; instr 4
 
-asig		poscil	p5, p4, 3
-			outs	asig, asig
+; asig		poscil	p5, p4, 3
+; 			outs	asig, asig
 
-endin
+; endin
 
 /**************************************************************************************** */
 /**************************************************************************************** */
@@ -419,7 +408,7 @@ endin
 /**************************************************************************************** */
 
 instr 6 ;ruido filtrado
-irango	=	p4
+irango		=	p4
 ifreqIni	=	p5
 iamp		=	p6
 
@@ -439,8 +428,8 @@ kAz		randi	360, 1/6, 543
 kElev	randi	60, 1/6, 765
 aleft, aright hrtfmove2 afilt, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
 
-kamp		randi	.2, 1, 343
-kamp		=	kamp + .3
+kamp	randi	.2, 1, 343
+kamp	=	kamp + .3
 		outs		aleft*kamp, aright*kamp
 
 gasig3	= gasig3 + afilt*4
@@ -471,7 +460,7 @@ endin
 instr 7 ;ruido rosa
 
 asig 	pinkish .5
-kAz 		= 	p4
+kAz 	= 	p4
 kElev	= 	p5
 aleft, aright hrtfmove2 asig, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
 		outs	aleft, aright
@@ -487,13 +476,13 @@ endin
 
 instr 8 ; reproduce un archivo
 
-iAz 		= 	p4
+iAz 	= 	p4
 iElev	= 	p5
 iFile	= 	p6
-iamp		=  	p7
+iamp	=  	p7
 ipitch	=	p8
 
-asig		diskin2	iFile, ipitch
+asig	diskin2	iFile, ipitch
 asig 	= asig*iamp
 aleft, aright hrtfmove2 asig, iAz, iElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
 		outs	aleft, aright
