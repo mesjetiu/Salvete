@@ -5,29 +5,32 @@
 ;Título: "Salvete, quicumque estis..."
 ;Fecha: Mayo de 2012
 
+;La obra no está pensada para ser ejecutada en vivo, ni en 2012 cuando se creó, ni hoy,
+;en 2023, que se revisa y refactoriza. Existen parte en las que la demanda de velocidad es 
+;demasiado grande y se producen 'Buffer underrun in real-time audio output'.
+;Aún así, puede ser útil la ejecución en vivo para debugear el programa. */
+;Elegir aquí si se quiere obtener un archivo de audio o una ejecución en vivo:
 
-;-o salvete_quicumque_estis_2.wav -W
--odac
+;-o salvete.wav -W ; Crea un archivo WAV
+-odac ; Ejecución en vivo
 </CsOptions>
 <CsInstruments>
  
-
+/* El Sample Rate se ha escogido de 44100 Hz para facilitar la ejecución
+de los audios de Golden Record, que tienen precisamente esta magnitud */
 sr =  44100 
 ksmps = 32 
-nchnls = 2 
-0dbfs  = 1 
+nchnls = 2 ;Toda la composición está pensada para ser ejecutada por dos canales, incluso la espacialización en 3D.
+0dbfs  = 1 ;No modificar esto, ya que todo el código supone que la intensidad está entre -1 y 1
 
-;seed 0
-;seed 2 
-;seed 321 ;8b
-;seed 12345678 ;11
-;seed	55555 ;9
-;seed 4444 ;
-seed	876 ;10
+/* Aquí se establece una semilla para la generación de números aleatorios.
+En esta composición la aleatoriedad juega un papel muy importante.
+Probar a modificar este entero para obtener diferentes versiones */
+seed	876 
 
 gisine	ftgen	1, 0, 2^10, 10, 1
 girich	ftgen	2, 0, 2^16, 10, 1,1/2,1/3,1/4,1/5,1/6,1/7,1/8
-gipunto 	ftgen	3, 0, 5, 2, 0,0,1,1
+gipunto ftgen	3, 0, 5, 2, 0,0,1,1
 gicuadr	ftgen	4, 0, 4, 2, 0,0,1,1
 
 
