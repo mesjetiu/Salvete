@@ -207,7 +207,9 @@ loop_le iloop5_i, 1, iIter, loop5
 
 endin
 
-
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 
 instr 2 ; 8 armónicos vienen y se colocan desde una frecuencia aleatoria hasta su sitio
@@ -311,8 +313,7 @@ ya que sin el slider su valor es siempre 0, e instr 2 no tendría ningún efecto
 ;kvolumen invalue "slider1"
 kvolumen = 0.7
 
-
-; Sumamos todo para enviarlo al archivo de audio
+; Sumamos todo para la salida del instrumento.
 asig1 = (ah1*ipan1+ah2*ipan2+ah3*ipan3+ah4*ipan4+ah5*ipan5+ah6*ipan5+ah7*ipan7+ah8*ipan8)*igain*kvolumen*0.1
 
 asig2 = (ah1*(1-ipan1)+ah2*(1-ipan2)+ah3*(1-ipan3)+ah4*(1-ipan4)+ah5*(1-ipan5)+ah6*(1-ipan6)+ah7*(1-ipan7)+ah8*(1-ipan8))*igain*kvolumen*0.1
@@ -321,16 +322,19 @@ asig2 = (ah1*(1-ipan1)+ah2*(1-ipan2)+ah3*(1-ipan3)+ah4*(1-ipan4)+ah5*(1-ipan5)+a
 asig1	linen	asig1, p3/100, p3, .1 
 asig2	linen	asig2, p3/100, p3, .1 
 		;outs asig1,asig2
-		
+
+; La salida de instr 2 va variables globales de reverb.		
 gasig1 = gasig1 + asig1
 gasig2 = gasig2 + asig2
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
-instr 3 ; FM. Produce pulsos de FM y los localiza binuralmente
-
-
-		;;Onda moduladora
+; FM. Produce pulsos de FM y los localiza binuralmente
+instr 3 
+;Onda moduladora
 ;Amplitud:
 kamp1	=	1500
 kfreq1	=	19
@@ -343,30 +347,35 @@ kamp 	=	p5
 kfreq	=	p4
 ;Oscilador:		
 aCar 	poscil 	kamp, kfreq+aMod1, 2
-kenv		transeg 0, .01, -2, 1, p3-0.1, -2, 0
-aCar		=	aCar*kenv
+kenv	transeg 0, .01, -2, 1, p3-0.1, -2, 0
+aCar	=	aCar*kenv
 
 ;sonido a reverb (instr 99 o 999)
 gasig1 = gasig1 + aCar*.55
 gasig2 = gasig2 + aCar*.55
 
-
 ;Sonido binaural
 kAz = p6
 kElev = p7
-aleft, aright hrtfmove aCar, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
-;
-		outs aleft*.5, aright*.5
+aleft, aright 	hrtfmove aCar, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
+				outs aleft*.5, aright*.5
 endin
+
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 
 instr 4
 
 asig		poscil	p5, p4, 3
-outs		asig, asig
+			outs	asig, asig
 
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 
 instr 5 ;golpes de campana reiterados que aceleran y caen.
@@ -375,28 +384,24 @@ iamp		=	p7
 
 kfreq	expon	10, p3, 5000
 asound	randh	.2, kfreq
-
-
-
 kfreqr 	= 	p4
-
-kAz 		=	p5
+kAz 	=	p5
 kElev	= 	p6
-
 afiltered 	reson	asound, kfreqr, .2
 afiltered	 	balance	afiltered, asound
 afiltered		= 		afiltered*iamp
-
 kenv			transeg	0, .01, -2, 1, p3-.01-.5, -4, 0, .5, 0, 0
-
-aleft, aright hrtfmove2 afiltered*kenv, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
-
+aleft, aright 	hrtfmove2 afiltered*kenv, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
 gasig5	= gasig5 + afiltered
 gasig6	= gasig6 + afiltered
 
 
-		outs aleft, aright
+outs aleft, aright
 endin
+
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 instr 995 ;reverberación
 
@@ -409,12 +414,14 @@ gasig6 = 0
 
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
+
 instr 6 ;ruido filtrado
 irango	=	p4
 ifreqIni	=	p5
 iamp		=	p6
-
-
 
 anoise	noise	iamp, .7
 kfcamb	random	1/3, 1/7
@@ -441,6 +448,10 @@ gasig4	= gasig4 + afilt*4
 
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
+
 instr 996 ;reverberación
 
 /*asig1	reverb gasig1, 4
@@ -452,6 +463,10 @@ gasig1 = 0
 gasig2 = 0
 
 endin
+
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 instr 7 ;ruido rosa
 
@@ -466,6 +481,9 @@ gasig2	= gasig2 + asig
 
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 instr 8 ; reproduce un archivo
 
@@ -492,51 +510,56 @@ gasig2	= gasig2 + asig
 
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
+
 
 instr 9 ; sinusoide que cambia frecuencia con randh
 ifreq	=	p4
 irango	=	p5
-iamp		=	p6
-icps		=	p7
+iamp	=	p6
+icps	=	p7
 
-kcps		random	1, icps
+kcps	random	1, icps
 krango	linseg	0, p3, irango
 kfreq	randh	krango, kcps
 kfreq	= kfreq + ifreq
-;kamp		linseg	0, p3/3, 1, p3/3, 1, p3/3, 0
-kamp		expseg	0.01, p3-.2, iamp, .2, .001
-asig		poscil	kamp, kfreq, 4
-
-
-
+kamp	expseg	0.01, p3-.2, iamp, .2, .001
+asig	poscil	kamp, kfreq, 4
 iElev	=	0
 kAz		line		-90,p3,3600
 aleft, aright hrtfmove2 asig, kAz, iElev, "hrtf-44100-left.dat","hrtf-44100-right.dat"
 		outs	aleft, aright
-
-/*kpan		poscil	1, 1/4, 1
-a1, a2 pan2 asig, kpan
-		outs a1, a2*/
-
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 
 instr 998 ;reverberación
 
-
 asig1, asig2	freeverb gasig1, gasig2, .99, 1
-		outs	asig1*2, asig2*2
+			outs	asig1*2, asig2*2
 gasig1 = 0
 gasig2 = 0
 
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 instr 10 ; reproduce los saludos con cada vez más densidad y velocidad hasta desaparecer bruscamente.
 
 
 endin
+
+
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
 
 instr 99 ;reverberación
 
@@ -549,10 +572,14 @@ gasig2 = 0
 
 endin
 
+/**************************************************************************************** */
+/**************************************************************************************** */
+/**************************************************************************************** */
+
 instr 991 ;reverberación
 
 asig1, asig2	freeverb gasig1, gasig2, .8, .5
-		outs asig1, asig2
+				outs asig1, asig2
 
 gasig1 = 0
 gasig2 = 0
