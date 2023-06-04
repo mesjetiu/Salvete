@@ -35,11 +35,9 @@ girich	ftgen	2, 0, 2^16, 10, 1,1/2,1/3,1/4,1/5,1/6,1/7,1/8
 gipunto ftgen	3, 0, 5, 2, 0,0,1,1
 gicuadr	ftgen	4, 0, 4, 2, 0,0,1,1
 
-/* Varialbes globales */
+/* Varialbes globales para reverbs */
 gasig1 init 0
 gasig2 init 0
-gasig3 init 0
-gasig4 init 0
 gasig5 init 0
 gasig6 init 0
 
@@ -474,9 +472,6 @@ aleft, aright hrtfmove2 afilt, kAz, kElev, "hrtf-44100-left.dat","hrtf-44100-rig
 kamp	randi	.2, 1, 343
 kamp	=	kamp + .3
 		outs		aleft*kamp, aright*kamp
-
-gasig3	= gasig3 + afilt*4
-gasig4	= gasig4 + afilt*4
 
 endin
 
